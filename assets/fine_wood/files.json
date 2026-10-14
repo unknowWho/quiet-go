@@ -1,0 +1,736 @@
+{
+  "Diffuse": {
+    "8k": {
+      "jpg": {
+        "size": 15526098,
+        "md5": "9a15bb8d32877d794ae709ad040cc219",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/8k/fine_grained_wood/fine_grained_wood_col_8k.jpg"
+      },
+      "png": {
+        "size": 75563491,
+        "md5": "e2094188c46cee0289977ebb04b04393",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/8k/fine_grained_wood/fine_grained_wood_col_8k.png"
+      },
+      "exr": {
+        "size": 51100190,
+        "md5": "eb871733ac50c2f3c2524b6b9dd6b7c0",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/8k/fine_grained_wood/fine_grained_wood_col_8k.exr"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 4744081,
+        "md5": "50cba9a39e97c3063d87cb0a9db1f106",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fine_grained_wood/fine_grained_wood_col_4k.jpg"
+      },
+      "png": {
+        "size": 22423690,
+        "md5": "bf31e7b182ceb5a577cb710292a35044",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/4k/fine_grained_wood/fine_grained_wood_col_4k.png"
+      },
+      "exr": {
+        "size": 17152472,
+        "md5": "d8756e01eb503b012bff4e9edfa6373d",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/4k/fine_grained_wood/fine_grained_wood_col_4k.exr"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 1327517,
+        "md5": "cfbfbf2cc0e0633af9b959a0e6e17182",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_col_2k.jpg"
+      },
+      "png": {
+        "size": 5970519,
+        "md5": "7762bdf53e42e7aa622140788bc5b291",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/fine_grained_wood/fine_grained_wood_col_2k.png"
+      },
+      "exr": {
+        "size": 4780120,
+        "md5": "5c06258087a8d8c7b14c94e5a6c0b5ba",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/2k/fine_grained_wood/fine_grained_wood_col_2k.exr"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 336305,
+        "md5": "3db9decdde678e087e67ff99d30c0a73",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_col_1k.jpg"
+      },
+      "png": {
+        "size": 1390656,
+        "md5": "ae1bae182e4b3fb6f97a6014c5dd3667",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/fine_grained_wood/fine_grained_wood_col_1k.png"
+      },
+      "exr": {
+        "size": 1161293,
+        "md5": "6bd88472b7302fc2f21abfbe8d2645d0",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/1k/fine_grained_wood/fine_grained_wood_col_1k.exr"
+      }
+    }
+  },
+  "nor_dx": {
+    "8k": {
+      "jpg": {
+        "size": 9249535,
+        "md5": "513e18cd6f6766dddbf810c05ddfcfbe",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/8k/fine_grained_wood/fine_grained_wood_nor_dx_8k.jpg"
+      },
+      "png": {
+        "size": 40812668,
+        "md5": "70a326c8ecb3483ed850de5192d53f04",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/8k/fine_grained_wood/fine_grained_wood_nor_dx_8k.png"
+      },
+      "exr": {
+        "size": 24720222,
+        "md5": "28de6cded8427ace6e2ec0eb2cf4e3ab",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/8k/fine_grained_wood/fine_grained_wood_nor_dx_8k.exr"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 2794854,
+        "md5": "9b5599cca0b18ad8518d061ed47681dd",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fine_grained_wood/fine_grained_wood_nor_dx_4k.jpg"
+      },
+      "png": {
+        "size": 11199241,
+        "md5": "cc4f939e6f2f5594961530ae60ba5328",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/4k/fine_grained_wood/fine_grained_wood_nor_dx_4k.png"
+      },
+      "exr": {
+        "size": 8217871,
+        "md5": "8fdd21e3af82b6b0dadb97af480cb8fc",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/4k/fine_grained_wood/fine_grained_wood_nor_dx_4k.exr"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 759557,
+        "md5": "7bd453d3364f1d2be4fdfcecded3040d",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_nor_dx_2k.jpg"
+      },
+      "png": {
+        "size": 3210921,
+        "md5": "eb9ab229568c77af5e07a26b615784f0",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/fine_grained_wood/fine_grained_wood_nor_dx_2k.png"
+      },
+      "exr": {
+        "size": 2639255,
+        "md5": "89c26e28c3ad614ce54f890deb99799b",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/2k/fine_grained_wood/fine_grained_wood_nor_dx_2k.exr"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 169280,
+        "md5": "bebc1e4b5783a03f884b439cb55d485b",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_nor_dx_1k.jpg"
+      },
+      "png": {
+        "size": 810276,
+        "md5": "3117792ea925f8bd688b4fe285e62cb7",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/fine_grained_wood/fine_grained_wood_nor_dx_1k.png"
+      },
+      "exr": {
+        "size": 682440,
+        "md5": "1045b13b3e997b41e8201bdfa3e81be9",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/1k/fine_grained_wood/fine_grained_wood_nor_dx_1k.exr"
+      }
+    }
+  },
+  "nor_gl": {
+    "8k": {
+      "jpg": {
+        "size": 9668079,
+        "md5": "2742e713aba086a05607fc9a50bd7baf",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/8k/fine_grained_wood/fine_grained_wood_nor_gl_8k.jpg"
+      },
+      "png": {
+        "size": 41915903,
+        "md5": "b36e227424517ab152b5d733ad610b14",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/8k/fine_grained_wood/fine_grained_wood_nor_gl_8k.png"
+      },
+      "exr": {
+        "size": 25133930,
+        "md5": "ec44fbcda98082d533dbd5a32bee52ab",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/8k/fine_grained_wood/fine_grained_wood_nor_gl_8k.exr"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 3075600,
+        "md5": "de7f162847a757b8beb189b404e9b361",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fine_grained_wood/fine_grained_wood_nor_gl_4k.jpg"
+      },
+      "png": {
+        "size": 11198700,
+        "md5": "ee314ae85c69baecfefb3c627991710e",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/4k/fine_grained_wood/fine_grained_wood_nor_gl_4k.png"
+      },
+      "exr": {
+        "size": 8173913,
+        "md5": "6655a236a2222b45353b7f1c7d72eded",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/4k/fine_grained_wood/fine_grained_wood_nor_gl_4k.exr"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 855682,
+        "md5": "24423b733087ca4cefe5833d131a1f62",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_nor_gl_2k.jpg"
+      },
+      "png": {
+        "size": 3210822,
+        "md5": "c29616d3509274d1ba7c3fa7a111045f",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/fine_grained_wood/fine_grained_wood_nor_gl_2k.png"
+      },
+      "exr": {
+        "size": 2619477,
+        "md5": "f792f9514f5410e586d12700b3114f4e",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/2k/fine_grained_wood/fine_grained_wood_nor_gl_2k.exr"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 193626,
+        "md5": "a9e33e87ea5c32945fc30553767b7046",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_nor_gl_1k.jpg"
+      },
+      "png": {
+        "size": 810317,
+        "md5": "35c4f86b7fbd91eba54a4d6e88fb16d7",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/fine_grained_wood/fine_grained_wood_nor_gl_1k.png"
+      },
+      "exr": {
+        "size": 680501,
+        "md5": "75fc58cdce7dea433d6d727e4af62b56",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/1k/fine_grained_wood/fine_grained_wood_nor_gl_1k.exr"
+      }
+    }
+  },
+  "blend": {
+    "8k": {
+      "blend": {
+        "size": 274008,
+        "md5": "d72a5519e5975684387e34c0fd334ff1",
+        "include": {
+          "textures/fine_grained_wood_col_8k.jpg": {
+            "size": 15526098,
+            "md5": "9a15bb8d32877d794ae709ad040cc219",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/8k/fine_grained_wood/fine_grained_wood_col_8k.jpg"
+          },
+          "textures/fine_grained_wood_rough_8k.jpg": {
+            "size": 9326045,
+            "md5": "d21141b049389b77df33b0b24e3dec77",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/8k/fine_grained_wood/fine_grained_wood_rough_8k.jpg"
+          },
+          "textures/fine_grained_wood_nor_gl_8k.exr": {
+            "size": 25133930,
+            "md5": "ec44fbcda98082d533dbd5a32bee52ab",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/8k/fine_grained_wood/fine_grained_wood_nor_gl_8k.exr"
+          }
+        },
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/blend/8k/fine_grained_wood/fine_grained_wood_8k.blend"
+      }
+    },
+    "4k": {
+      "blend": {
+        "size": 274041,
+        "md5": "389e6964cf6c1aa3448a815d5a15b116",
+        "include": {
+          "textures/fine_grained_wood_col_4k.jpg": {
+            "size": 4744081,
+            "md5": "50cba9a39e97c3063d87cb0a9db1f106",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fine_grained_wood/fine_grained_wood_col_4k.jpg"
+          },
+          "textures/fine_grained_wood_rough_4k.jpg": {
+            "size": 3094322,
+            "md5": "85f24089d92ba2691644e0245ce290b0",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fine_grained_wood/fine_grained_wood_rough_4k.jpg"
+          },
+          "textures/fine_grained_wood_nor_gl_4k.exr": {
+            "size": 8173913,
+            "md5": "6655a236a2222b45353b7f1c7d72eded",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/4k/fine_grained_wood/fine_grained_wood_nor_gl_4k.exr"
+          }
+        },
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/blend/4k/fine_grained_wood/fine_grained_wood_4k.blend"
+      }
+    },
+    "2k": {
+      "blend": {
+        "size": 273793,
+        "md5": "fc0d7b7b8aefb28630c52ecff812159b",
+        "include": {
+          "textures/fine_grained_wood_rough_2k.jpg": {
+            "size": 871792,
+            "md5": "1356433f66fe066762c1be121f76738d",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_rough_2k.jpg"
+          },
+          "textures/fine_grained_wood_nor_gl_2k.exr": {
+            "size": 2619477,
+            "md5": "f792f9514f5410e586d12700b3114f4e",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/2k/fine_grained_wood/fine_grained_wood_nor_gl_2k.exr"
+          },
+          "textures/fine_grained_wood_col_2k.jpg": {
+            "size": 1327517,
+            "md5": "cfbfbf2cc0e0633af9b959a0e6e17182",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_col_2k.jpg"
+          }
+        },
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/blend/2k/fine_grained_wood/fine_grained_wood_2k.blend"
+      }
+    },
+    "1k": {
+      "blend": {
+        "size": 274009,
+        "md5": "5dddfb31c4ade5566e131a3c86a15856",
+        "include": {
+          "textures/fine_grained_wood_nor_gl_1k.exr": {
+            "size": 680501,
+            "md5": "75fc58cdce7dea433d6d727e4af62b56",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/1k/fine_grained_wood/fine_grained_wood_nor_gl_1k.exr"
+          },
+          "textures/fine_grained_wood_col_1k.jpg": {
+            "size": 336305,
+            "md5": "3db9decdde678e087e67ff99d30c0a73",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_col_1k.jpg"
+          },
+          "textures/fine_grained_wood_rough_1k.jpg": {
+            "size": 215155,
+            "md5": "5e29204cca6747b5df219e9a7255540f",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_rough_1k.jpg"
+          }
+        },
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/blend/1k/fine_grained_wood/fine_grained_wood_1k.blend"
+      }
+    }
+  },
+  "gltf": {
+    "8k": {
+      "gltf": {
+        "size": 3586,
+        "md5": "80683db2af51499233d089716d8a344d",
+        "include": {
+          "fine_grained_wood.bin": {
+            "size": 2369012,
+            "md5": "4e84b8ace76dda58d8343c21c4dea3a7",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/gltf/8k/fine_grained_wood/fine_grained_wood.bin"
+          },
+          "textures/fine_grained_wood_col_8k.jpg": {
+            "size": 15526098,
+            "md5": "9a15bb8d32877d794ae709ad040cc219",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/8k/fine_grained_wood/fine_grained_wood_col_8k.jpg"
+          },
+          "textures/fine_grained_wood_rough_8k.jpg": {
+            "size": 9326045,
+            "md5": "d21141b049389b77df33b0b24e3dec77",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/8k/fine_grained_wood/fine_grained_wood_rough_8k.jpg"
+          },
+          "textures/fine_grained_wood_nor_gl_8k.jpg": {
+            "size": 9668079,
+            "md5": "2742e713aba086a05607fc9a50bd7baf",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/8k/fine_grained_wood/fine_grained_wood_nor_gl_8k.jpg"
+          }
+        },
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/gltf/8k/fine_grained_wood/fine_grained_wood_8k.gltf"
+      }
+    },
+    "4k": {
+      "gltf": {
+        "size": 3586,
+        "md5": "c4b6c1ce4268840d3724700ac734cb15",
+        "include": {
+          "fine_grained_wood.bin": {
+            "size": 2369012,
+            "md5": "4e84b8ace76dda58d8343c21c4dea3a7",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/gltf/8k/fine_grained_wood/fine_grained_wood.bin"
+          },
+          "textures/fine_grained_wood_col_4k.jpg": {
+            "size": 4744081,
+            "md5": "50cba9a39e97c3063d87cb0a9db1f106",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fine_grained_wood/fine_grained_wood_col_4k.jpg"
+          },
+          "textures/fine_grained_wood_rough_4k.jpg": {
+            "size": 3094322,
+            "md5": "85f24089d92ba2691644e0245ce290b0",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fine_grained_wood/fine_grained_wood_rough_4k.jpg"
+          },
+          "textures/fine_grained_wood_nor_gl_4k.jpg": {
+            "size": 3075600,
+            "md5": "de7f162847a757b8beb189b404e9b361",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fine_grained_wood/fine_grained_wood_nor_gl_4k.jpg"
+          }
+        },
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/gltf/4k/fine_grained_wood/fine_grained_wood_4k.gltf"
+      }
+    },
+    "2k": {
+      "gltf": {
+        "size": 3586,
+        "md5": "ef773ba45b07db9ae3ce8ec1fd0d63fa",
+        "include": {
+          "textures/fine_grained_wood_rough_2k.jpg": {
+            "size": 871792,
+            "md5": "1356433f66fe066762c1be121f76738d",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_rough_2k.jpg"
+          },
+          "fine_grained_wood.bin": {
+            "size": 2369012,
+            "md5": "4e84b8ace76dda58d8343c21c4dea3a7",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/gltf/8k/fine_grained_wood/fine_grained_wood.bin"
+          },
+          "textures/fine_grained_wood_nor_gl_2k.jpg": {
+            "size": 855682,
+            "md5": "24423b733087ca4cefe5833d131a1f62",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_nor_gl_2k.jpg"
+          },
+          "textures/fine_grained_wood_col_2k.jpg": {
+            "size": 1327517,
+            "md5": "cfbfbf2cc0e0633af9b959a0e6e17182",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_col_2k.jpg"
+          }
+        },
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/gltf/2k/fine_grained_wood/fine_grained_wood_2k.gltf"
+      }
+    },
+    "1k": {
+      "gltf": {
+        "size": 3586,
+        "md5": "050e587d177bc9ba2cc81b72f52ded99",
+        "include": {
+          "textures/fine_grained_wood_nor_gl_1k.jpg": {
+            "size": 193626,
+            "md5": "a9e33e87ea5c32945fc30553767b7046",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_nor_gl_1k.jpg"
+          },
+          "fine_grained_wood.bin": {
+            "size": 2369012,
+            "md5": "4e84b8ace76dda58d8343c21c4dea3a7",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/gltf/8k/fine_grained_wood/fine_grained_wood.bin"
+          },
+          "textures/fine_grained_wood_col_1k.jpg": {
+            "size": 336305,
+            "md5": "3db9decdde678e087e67ff99d30c0a73",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_col_1k.jpg"
+          },
+          "textures/fine_grained_wood_rough_1k.jpg": {
+            "size": 215155,
+            "md5": "5e29204cca6747b5df219e9a7255540f",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_rough_1k.jpg"
+          }
+        },
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/gltf/1k/fine_grained_wood/fine_grained_wood_1k.gltf"
+      }
+    }
+  },
+  "arm": {
+    "8k": {
+      "jpg": {
+        "size": 11040062,
+        "md5": "3d208e08c2652dabc08151cd9b77659f",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/8k/fine_grained_wood/fine_grained_wood_arm_8k.jpg"
+      },
+      "png": {
+        "size": 76528348,
+        "md5": "e8c8be0fc4f4df94e121c5c8a887ba61",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/8k/fine_grained_wood/fine_grained_wood_arm_8k.png"
+      },
+      "exr": {
+        "size": 52601549,
+        "md5": "762a4411765434879bc08b48526f67aa",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/8k/fine_grained_wood/fine_grained_wood_arm_8k.exr"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 3766782,
+        "md5": "49ee67afba30d47a313c07677fbe89dd",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fine_grained_wood/fine_grained_wood_arm_4k.jpg"
+      },
+      "png": {
+        "size": 23316039,
+        "md5": "8639bb0592905fbcc168b3604fedaf26",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/4k/fine_grained_wood/fine_grained_wood_arm_4k.png"
+      },
+      "exr": {
+        "size": 20086349,
+        "md5": "8e8484a5af60d1e8d8d0e5df1284bb0d",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/4k/fine_grained_wood/fine_grained_wood_arm_4k.exr"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 1073682,
+        "md5": "0fe2817c6f6005cdcbd934bba6aa6aa0",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_arm_2k.jpg"
+      },
+      "png": {
+        "size": 6602081,
+        "md5": "070170aff109c93d9442b908843a8f0e",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/fine_grained_wood/fine_grained_wood_arm_2k.png"
+      },
+      "exr": {
+        "size": 6773136,
+        "md5": "11323dbebded307d35d159c69699875e",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/2k/fine_grained_wood/fine_grained_wood_arm_2k.exr"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 247999,
+        "md5": "e0d2eb48c2eb9c36af2786c8a10269ff",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_arm_1k.jpg"
+      },
+      "png": {
+        "size": 1628011,
+        "md5": "f085ce7b776459ee84bb83fac23facc3",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/fine_grained_wood/fine_grained_wood_arm_1k.png"
+      },
+      "exr": {
+        "size": 1738523,
+        "md5": "dc8c72c0faf4fccefcaacf24715fc7cf",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/1k/fine_grained_wood/fine_grained_wood_arm_1k.exr"
+      }
+    }
+  },
+  "AO": {
+    "8k": {
+      "jpg": {
+        "size": 20268801,
+        "md5": "fcdf786387340482c881c68612cdb6f5",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/8k/fine_grained_wood/fine_grained_wood_ao_8k.jpg"
+      },
+      "png": {
+        "size": 44610554,
+        "md5": "22773d26d20ef9edadebc90efd60c111",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/8k/fine_grained_wood/fine_grained_wood_ao_8k.png"
+      },
+      "exr": {
+        "size": 30697785,
+        "md5": "aa46c8c2c6c120871bac853329a9f912",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/8k/fine_grained_wood/fine_grained_wood_ao_8k.exr"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 7297393,
+        "md5": "556160abdf5519a5d40387bd96a1a51d",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fine_grained_wood/fine_grained_wood_ao_4k.jpg"
+      },
+      "png": {
+        "size": 14444681,
+        "md5": "5d89fe715da02eacf840de3f5fa5934a",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/4k/fine_grained_wood/fine_grained_wood_ao_4k.png"
+      },
+      "exr": {
+        "size": 11085777,
+        "md5": "3b32f93f1b1852bc470635a9cf1a87c1",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/4k/fine_grained_wood/fine_grained_wood_ao_4k.exr"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 2360200,
+        "md5": "5ffe88a08e47c49f2c88c20f54c3759c",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_ao_2k.jpg"
+      },
+      "png": {
+        "size": 4094065,
+        "md5": "24f355bec68864da28d99452bf221f43",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/fine_grained_wood/fine_grained_wood_ao_2k.png"
+      },
+      "exr": {
+        "size": 3493351,
+        "md5": "8ad2cecfc80baf3026fc37e7aa03ef4c",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/2k/fine_grained_wood/fine_grained_wood_ao_2k.exr"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 601268,
+        "md5": "12b0641a728dc24d19473f5188560f19",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_ao_1k.jpg"
+      },
+      "png": {
+        "size": 1013587,
+        "md5": "959cc644ff86b7537f34b1f51f59db47",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/fine_grained_wood/fine_grained_wood_ao_1k.png"
+      },
+      "exr": {
+        "size": 906150,
+        "md5": "a85eb1e96bcbc3aa80d622dd0ea9eb28",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/1k/fine_grained_wood/fine_grained_wood_ao_1k.exr"
+      }
+    }
+  },
+  "Rough": {
+    "8k": {
+      "jpg": {
+        "size": 9326045,
+        "md5": "d21141b049389b77df33b0b24e3dec77",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/8k/fine_grained_wood/fine_grained_wood_rough_8k.jpg"
+      },
+      "png": {
+        "size": 25982085,
+        "md5": "9a8812c4b064007fa335edb98b360c7b",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/8k/fine_grained_wood/fine_grained_wood_rough_8k.png"
+      },
+      "exr": {
+        "size": 15131524,
+        "md5": "747436bc7f52590819055600638decb1",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/8k/fine_grained_wood/fine_grained_wood_rough_8k.exr"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 3094322,
+        "md5": "85f24089d92ba2691644e0245ce290b0",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fine_grained_wood/fine_grained_wood_rough_4k.jpg"
+      },
+      "png": {
+        "size": 7320339,
+        "md5": "a56726ca8a46ed5e1e34788b54d5c988",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/4k/fine_grained_wood/fine_grained_wood_rough_4k.png"
+      },
+      "exr": {
+        "size": 5074689,
+        "md5": "03050f7ba5da80a5ae1f786906653187",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/4k/fine_grained_wood/fine_grained_wood_rough_4k.exr"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 871792,
+        "md5": "1356433f66fe066762c1be121f76738d",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_rough_2k.jpg"
+      },
+      "png": {
+        "size": 2103115,
+        "md5": "470f4054f357efccd166b6683c621c06",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/fine_grained_wood/fine_grained_wood_rough_2k.png"
+      },
+      "exr": {
+        "size": 1566949,
+        "md5": "aa7004d6a6e302d28f1e9cda6084d791",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/2k/fine_grained_wood/fine_grained_wood_rough_2k.exr"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 215155,
+        "md5": "5e29204cca6747b5df219e9a7255540f",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_rough_1k.jpg"
+      },
+      "png": {
+        "size": 516076,
+        "md5": "c1b63d1d9092c6bcd524c2ae690cca83",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/fine_grained_wood/fine_grained_wood_rough_1k.png"
+      },
+      "exr": {
+        "size": 405530,
+        "md5": "ecf7524cab139e099bd117db112300e8",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/1k/fine_grained_wood/fine_grained_wood_rough_1k.exr"
+      }
+    }
+  },
+  "mtlx": {
+    "8k": {
+      "mtlx": {
+        "size": 4099,
+        "md5": "6b18c207914e80c6b530ddf7b058a5d3",
+        "include": {
+          "textures/fine_grained_wood_col_8k.jpg": {
+            "size": 15526098,
+            "md5": "9a15bb8d32877d794ae709ad040cc219",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/8k/fine_grained_wood/fine_grained_wood_col_8k.jpg"
+          },
+          "textures/fine_grained_wood_rough_8k.jpg": {
+            "size": 9326045,
+            "md5": "d21141b049389b77df33b0b24e3dec77",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/8k/fine_grained_wood/fine_grained_wood_rough_8k.jpg"
+          },
+          "textures/fine_grained_wood_nor_gl_8k.exr": {
+            "size": 25133930,
+            "md5": "ec44fbcda98082d533dbd5a32bee52ab",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/8k/fine_grained_wood/fine_grained_wood_nor_gl_8k.exr"
+          }
+        },
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/mtlx/8k/fine_grained_wood/fine_grained_wood_8k.mtlx"
+      }
+    },
+    "4k": {
+      "mtlx": {
+        "size": 4099,
+        "md5": "9c9eb053e619d52126df4b5123bb5517",
+        "include": {
+          "textures/fine_grained_wood_col_4k.jpg": {
+            "size": 4744081,
+            "md5": "50cba9a39e97c3063d87cb0a9db1f106",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fine_grained_wood/fine_grained_wood_col_4k.jpg"
+          },
+          "textures/fine_grained_wood_rough_4k.jpg": {
+            "size": 3094322,
+            "md5": "85f24089d92ba2691644e0245ce290b0",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fine_grained_wood/fine_grained_wood_rough_4k.jpg"
+          },
+          "textures/fine_grained_wood_nor_gl_4k.exr": {
+            "size": 8173913,
+            "md5": "6655a236a2222b45353b7f1c7d72eded",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/4k/fine_grained_wood/fine_grained_wood_nor_gl_4k.exr"
+          }
+        },
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/mtlx/4k/fine_grained_wood/fine_grained_wood_4k.mtlx"
+      }
+    },
+    "2k": {
+      "mtlx": {
+        "size": 4099,
+        "md5": "1eee2d1bc7be5cae0726505d836c54dd",
+        "include": {
+          "textures/fine_grained_wood_rough_2k.jpg": {
+            "size": 871792,
+            "md5": "1356433f66fe066762c1be121f76738d",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_rough_2k.jpg"
+          },
+          "textures/fine_grained_wood_nor_gl_2k.exr": {
+            "size": 2619477,
+            "md5": "f792f9514f5410e586d12700b3114f4e",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/2k/fine_grained_wood/fine_grained_wood_nor_gl_2k.exr"
+          },
+          "textures/fine_grained_wood_col_2k.jpg": {
+            "size": 1327517,
+            "md5": "cfbfbf2cc0e0633af9b959a0e6e17182",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_col_2k.jpg"
+          }
+        },
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/mtlx/2k/fine_grained_wood/fine_grained_wood_2k.mtlx"
+      }
+    },
+    "1k": {
+      "mtlx": {
+        "size": 4099,
+        "md5": "496e20ebb40b342bfac72033b8acede0",
+        "include": {
+          "textures/fine_grained_wood_nor_gl_1k.exr": {
+            "size": 680501,
+            "md5": "75fc58cdce7dea433d6d727e4af62b56",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/exr/1k/fine_grained_wood/fine_grained_wood_nor_gl_1k.exr"
+          },
+          "textures/fine_grained_wood_col_1k.jpg": {
+            "size": 336305,
+            "md5": "3db9decdde678e087e67ff99d30c0a73",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_col_1k.jpg"
+          },
+          "textures/fine_grained_wood_rough_1k.jpg": {
+            "size": 215155,
+            "md5": "5e29204cca6747b5df219e9a7255540f",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_rough_1k.jpg"
+          }
+        },
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/mtlx/1k/fine_grained_wood/fine_grained_wood_1k.mtlx"
+      }
+    }
+  }
+}

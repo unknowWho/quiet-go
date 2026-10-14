@@ -1,0 +1,23 @@
+{
+  "id": "studio_small_09",
+  "title": "Studio Small 09",
+  "authors": {
+    "Sergej Majboroda": "All"
+  },
+  "source": "https://polyhaven.com/a/studio_small_09",
+  "license": "CC0 1.0",
+  "license_url": "https://polyhaven.com/license",
+  "retrieved": "2026-10-07",
+  "purpose": "Soft studio image-based reflection and ambient lighting for Go equipment",
+  "resolution": "1k",
+  "files": [
+    {
+      "file": "assets/studio/environment.hdr",
+      "map": "hdri",
+      "url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/studio_small_09_1k.hdr",
+      "bytes": 1615248,
+      "sha256": "e7cfda5f4e98e623db12b8bfd0184e048488e4855d9c83e2751fb44a32e80c45"
+    }
+  ],
+  "modification": "Source files unchanged; tiling, tint and material response set in shaders."
+}

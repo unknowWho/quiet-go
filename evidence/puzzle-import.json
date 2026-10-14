@@ -1,0 +1,45 @@
+{
+  "source_commit": "eee12b2e39d59dbe81a8b9eaa7d4f103978d9224",
+  "verified_source_files": 422,
+  "puzzles": 420,
+  "nodes": 37436,
+  "correct_conclusions": 1913,
+  "difficulty": {
+    "easy": 140,
+    "intermediate": 140,
+    "hard": 140
+  },
+  "syntax_repairs": [
+    {
+      "file": "ggg-intermediate-50.sgf",
+      "change": "Ignore one extraneous final closing parenthesis in parsed copy; original SGF unchanged."
+    }
+  ],
+  "excluded_files": [
+    "other/ggg-eternal-life.sgf (cyclic rules demonstration)",
+    "other/heart-go-problem.sgf (no explicit correct marker)"
+  ],
+  "excluded_branches": [
+    {
+      "id": "ggg-easy-102",
+      "excluded_branches": [
+        {
+          "parent": 7,
+          "node": 8,
+          "reason": "repetition",
+          "path": [
+            1,
+            2,
+            3,
+            4,
+            6,
+            7,
+            8
+          ],
+          "contains_correct": false
+        }
+      ]
+    }
+  ],
+  "library_sha256": "319f178ceb063b38f98e431fd7a7298bc41aff639a06757296d1dd59177d4614"
+}

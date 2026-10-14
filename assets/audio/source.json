@@ -1,0 +1,49 @@
+{
+  "title": "GoStoneSounds.ogg",
+  "author": "billhails2",
+  "source": "https://freesound.org/people/billhails2/sounds/588317/",
+  "download": "https://cdn.freesound.org/previews/588/588317_12616419-hq.mp3",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "retrieved": "2026-10-11",
+  "description": "Real Yunzi stones on tabletop and shin-kaya boards, author-recorded.",
+  "source_sha256": "b79a29c861d62f14a63551df9c615b075eeb9b51d2f2cf3f9cbe086b14ff2015",
+  "processing": "Mono PCM decode, five transients trimmed, DC removal, short fades, bounded gain. No pitch changes.",
+  "clips": [
+    {
+      "file": "assets/audio/stone-1.wav",
+      "source_start": 0.11489795918367347,
+      "source_end": 0.49489795918367346,
+      "sha256": "12dc83d65bc93db29af15834b148d5283f095df9433fb39a2cb91d8d8e6a49c4",
+      "peak": 0.732421875
+    },
+    {
+      "file": "assets/audio/stone-2.wav",
+      "source_start": 1.3889342403628118,
+      "source_end": 1.7689342403628119,
+      "sha256": "f2ba92200a81f41002a32a13fb2b0b13d567111bfb56e9ec523d218a474c64d2",
+      "peak": 0.732421875
+    },
+    {
+      "file": "assets/audio/stone-3.wav",
+      "source_start": 2.7379138321995464,
+      "source_end": 3.1179138321995463,
+      "sha256": "e07e1bf9217c7c2b23a6cc2930f05f9878c4cf9093aea91f031442fc468461bf",
+      "peak": 0.732421875
+    },
+    {
+      "file": "assets/audio/stone-4.wav",
+      "source_start": 5.0311791383219955,
+      "source_end": 5.411179138321995,
+      "sha256": "2f7c26f80180b569d44243b8390cbd530e55cc812724f2169ef48a1d340fc81b",
+      "peak": 0.732421875
+    },
+    {
+      "file": "assets/audio/stone-5.wav",
+      "source_start": 6.18530612244898,
+      "source_end": 6.5653061224489795,
+      "sha256": "4a85c583198cec9177a5567ceb2bf2fd511799b42e49c056272759342dd62fff",
+      "peak": 0.732421875
+    }
+  ]
+}

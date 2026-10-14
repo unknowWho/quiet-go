@@ -1,0 +1,44 @@
+{
+  "note": "Reused identical licensed original assets from the existing local CC0 collection. Not a scan of a specific Go board.",
+  "assets": [
+    {
+      "id": "wood_table_001",
+      "title": "Wood Table 001",
+      "authors": {
+        "Dimitrios Savva": "Photography",
+        "Rico Cilliers": "Processing"
+      },
+      "source": "https://polyhaven.com/a/wood_table_001",
+      "license": "CC0 1.0",
+      "license_url": "https://polyhaven.com/license",
+      "retrieved": "2026-10-07",
+      "purpose": "Go board, table and bowls; original photoscan recolored in game material",
+      "resolution": "1k",
+      "files": [
+        {
+          "file": "assets/wood/color.jpg",
+          "map": "Diffuse",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_table_001/wood_table_001_diff_1k.jpg",
+          "bytes": 215573,
+          "sha256": "460dd08d240f4a1f02982415048c3c5c200f385db212da18dc7e2df68bf4d0be"
+        },
+        {
+          "file": "assets/wood/normal.jpg",
+          "map": "nor_gl",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_table_001/wood_table_001_nor_gl_1k.jpg",
+          "bytes": 51927,
+          "sha256": "9bf7ddf5721e225c20290f1772ae37f9bdfd49658f6d458259eb794e2149d3cf"
+        },
+        {
+          "file": "assets/wood/orm.jpg",
+          "map": "arm",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_table_001/wood_table_001_arm_1k.jpg",
+          "bytes": 214520,
+          "sha256": "29d3f34a7c2c213e21b320365495fad673d3c8a3ce885b879fc0a77a187dd828"
+        }
+      ],
+      "modification": "Source files unchanged; tiling, tint and material response set in shaders."
+    }
+  ],
+  "retrieved": "2026-10-11"
+}

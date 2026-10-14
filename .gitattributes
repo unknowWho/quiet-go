@@ -1,0 +1,12 @@
+* text=auto
+*.gd text eol=lf
+*.gdshader text eol=lf
+*.tscn text eol=lf
+*.godot text eol=lf
+*.sgf -text
+assets/problems/library.json -text
+*.png binary
+*.jpg binary
+*.hdr binary
+*.wav binary
+*.mp3 binary

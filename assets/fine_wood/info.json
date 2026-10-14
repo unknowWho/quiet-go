@@ -1,0 +1,51 @@
+{
+  "date_published": 1615024672,
+  "name": "Fine Grained Wood",
+  "old_id": 307,
+  "scale": "30x30CM",
+  "categories": [
+    "wood",
+    "man made",
+    "dirty",
+    "raw wood"
+  ],
+  "type": 1,
+  "authors": {
+    "Rob Tuytel": "All"
+  },
+  "tags": [
+    "clean",
+    "wood",
+    "plain",
+    "damaged",
+    "aged",
+    "used"
+  ],
+  "dimensions": [
+    600.0000238418579,
+    600.0000238418579
+  ],
+  "max_resolution": [
+    8192,
+    8192
+  ],
+  "files_hash": "955d8311658fa7b5a5e5d081f3b6c7e73b876087",
+  "sponsors": [
+    "84390067"
+  ],
+  "description": "Free 8K texture of fine-grained dark brown wood with subtle wear, faint scratches, dirt and a low sheen, conveying an aged, used surface.",
+  "category_id": "30ac2613-5076-5364-b4da-130117ad592d",
+  "category": "Wood/Boards & Planks/Weathered Planks",
+  "attributes": {
+    "surface_use": "object",
+    "condition": [
+      "weathered",
+      "worn",
+      "damaged"
+    ],
+    "origin": "man_made"
+  },
+  "img_version": "d4e8420b",
+  "download_count": 140664,
+  "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/fine_grained_wood.png?width=256&height=256&format=webp&v=d4e8420b"
+}

@@ -1,0 +1,9 @@
+.godot/
+.runtime/
+evidence/*.log
+release/
+__pycache__/
+evidence/v*/
+evidence/art-*.png
+evidence/source-inspection.json
+evidence/*.import

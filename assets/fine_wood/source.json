@@ -1,0 +1,37 @@
+{
+  "id": "fine_grained_wood",
+  "title": "Fine Grained Wood",
+  "author": "Rob Tuytel",
+  "source": "https://polyhaven.com/a/fine_grained_wood",
+  "license": "CC0 1.0",
+  "license_url": "https://polyhaven.com/license",
+  "retrieved": "2026-10-11",
+  "resolution": "2k",
+  "modification": "Original JPG files unchanged. Shaders recolor the scanned wood, combine it with procedural straight grain, and map it to original board and bowl meshes. This is not a scan of a kaya Go board.",
+  "files": [
+    {
+      "file": "assets/fine_wood/color.jpg",
+      "map": "Diffuse",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_col_2k.jpg",
+      "bytes": 1327517,
+      "md5": "cfbfbf2cc0e0633af9b959a0e6e17182",
+      "sha256": "d97b1ab2c5206ac43bc0c42f21878da14f4d02497fd21396399406c03f3755a9"
+    },
+    {
+      "file": "assets/fine_wood/normal.jpg",
+      "map": "nor_gl",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_nor_gl_2k.jpg",
+      "bytes": 855682,
+      "md5": "24423b733087ca4cefe5833d131a1f62",
+      "sha256": "c76fcd29434978227db5a35b5b0238da1bee0fb5fa8cdfc6819a76c7ef723f3c"
+    },
+    {
+      "file": "assets/fine_wood/rough.jpg",
+      "map": "rough",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fine_grained_wood/fine_grained_wood_rough_2k.jpg",
+      "bytes": 871792,
+      "md5": "1356433f66fe066762c1be121f76738d",
+      "sha256": "7e8f5fc146ae7accd3b9deb2a173c1cf253707ccdee5070ce16cefd4ee68f1b7"
+    }
+  ]
+}
