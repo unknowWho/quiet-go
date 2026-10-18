@@ -49,6 +49,7 @@ var right_panel: PanelContainer
 var dock_panel: PanelContainer
 var sound_button: Button
 var nav_row: HBoxContainer
+var mode_bar: HBoxContainer
 var settings_open: bool = false
 var catalog_open: bool = false
 var history_open: bool = false
@@ -182,6 +183,7 @@ func _refresh():
 	clear(left)
 	clear(right)
 	clear(action_bar)
+	clear(mode_bar)
 	var g = current()
 	var learning: bool = section in ["lessons", "puzzles"]
 	Presentation.arrange(self)
@@ -212,6 +214,22 @@ func _home_ui():
 
 func _play_ui():
 	var c: String = "黑" if game.turn == 1 else "白"
+	for item in [["katago", "与 AI 对弈", "ai_mode"], ["local", "双人对弈", "local_mode"]]:
+		var selected: bool = mode != "local" if item[0] == "katago" else mode == "local"
+		var choice: Button = button(mode_bar, item[1], func():
+			if not selected: _request_new(game.size, item[0]))
+		choice.name = item[2]
+		choice.theme_type_variation = "NavButton"
+		choice.add_theme_font_size_override("font_size", 14)
+		choice.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		choice.toggle_mode = true
+		choice.set_pressed_no_signal(selected)
+		# Keep the current mode selected while a replacement game is being confirmed.
+		choice.pressed.connect(func(): choice.set_pressed_no_signal(selected))
+		choice.tooltip_text = "你执黑，与本机 AI 对弈" if item[0] == "katago" else "两人在同一台电脑上轮流落子"
+	var restart: Button = button(action_bar, "再来一局", func(): _request_new(game.size, mode))
+	restart.name = "restart_button"
+	restart.theme_type_variation = "PrimaryButton"
 	title_label.text = "手谈 · %d 路" % game.size
 	subtitle_label.text = _opponent_name() + (" · 你执黑" if mode != "local" else "") + "    /    黑贴 3¾ 子    /    不限时"
 	Presentation.heading(self, left, "对局设置", 23)
@@ -219,7 +237,7 @@ func _play_ui():
 	for n in [9, 13, 19]:
 		button(left, "%d 路 · %s" % [n, "入门" if n == 9 else ("进阶" if n == 13 else "标准")], func(): _request_new(n, mode))
 	rule(left)
-	button(left, "✓ 同屏双人" if mode == "local" else "同屏双人", func(): _request_new(game.size, "local"))
+	label(left, "AI 对手", 14, GOLD)
 	button(left, "✓ 入门陪练" if mode == "ai" else "入门陪练", func(): _request_new(game.size, "ai"))
 	button(left, "✓ KataGo 对弈" if mode == "katago" else "KataGo 对弈", func(): _request_new(game.size, "katago")).name = "katago_mode"
 	if mode == "ai": paragraph(left, "陪练会提子、逃打吃、连接与占点，适合熟悉操作；不标称段位。终局由你复核盘面。", 13)
@@ -260,7 +278,6 @@ func _play_ui():
 	elif game.resigned:
 		label(right, ("白" if game.resigned == 1 else "黑") + "棋获胜", 25, GOLD)
 		paragraph(right, ("黑" if game.resigned == 1 else "白") + "方中盘认输。")
-		button(action_bar, "再来一局", func(): _request_new(game.size, mode))
 	else:
 		var s: Dictionary = game.score()
 		label(right, "确认死子" if game.phase == "scoring" else _result_text(s), 22, GOLD)
@@ -274,7 +291,6 @@ func _play_ui():
 			if mode in ["ai", "katago"]: paragraph(right, "人机局也请检查双方死子，再代双方确认。形势估计不代替终局确认。", 12)
 		else:
 			paragraph(right, "双方已确认结果。胜差按中国数子法以“子”显示。", 14)
-			button(action_bar, "再来一局", func(): _request_new(game.size, mode))
 	rule(right)
 	button(right, "棋谱  −" if history_open else "棋谱  +", func():
 		history_open = not history_open
@@ -588,8 +604,9 @@ func _resume():
 	_refresh()
 	_maybe_ai()
 
-func confirm(text_value: String, action: Callable):
+func confirm(text_value: String, action: Callable, dialog_name: String = "confirmation_dialog"):
 	var dialog: ConfirmationDialog = ConfirmationDialog.new()
+	dialog.name = dialog_name
 	dialog.title = "静枰"
 	dialog.dialog_text = text_value
 	dialog.ok_button_text = "确定"
@@ -601,8 +618,9 @@ func confirm(text_value: String, action: Callable):
 	dialog.popup_centered(Vector2i(460, 190))
 
 func _request_new(n: int, opponent: String):
-	if not game.moves.is_empty():
-		confirm("开始 %d 路新局会替换当前棋局。需要保留时，请先导出 SGF 棋谱。" % n, func(): new_game(n, opponent))
+	if not game.moves.is_empty() and game.phase != "finished":
+		var opponent_text: String = {"local": "双人对弈", "katago": "KataGo 对弈", "ai": "入门陪练"}.get(opponent, "双人对弈")
+		confirm("开始 %d 路%s新局？当前棋局将被替换。需要保留时，请先导出 SGF 棋谱。" % [n, opponent_text], func(): new_game(n, opponent), "new_game_dialog")
 	else: new_game(n, opponent)
 
 func new_game(n: int, opponent: String):

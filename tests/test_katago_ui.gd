@@ -56,9 +56,22 @@ func run():
 	app._undo()
 	check(app.game.moves.size() == 2, "completed AI turn undoes the pair")
 	app._on_point(30)
-	app.new_game(13,"local")
+	await settle()
+	await click_button(app.find_child("local_mode",true,false))
+	var change_dialog: ConfirmationDialog = app.find_child("new_game_dialog",true,false)
+	await click_at(Vector2(change_dialog.position) + change_dialog.get_ok_button().get_global_rect().get_center())
 	await create_timer(0.5).timeout
-	check(app.game.size == 13 and app.game.moves.is_empty(), "new board cannot receive old AI move")
+	check(app.mode == "local" and app.game.moves.is_empty(), "visible mode change cannot receive old AI move")
+	app.new_game(9,"katago")
+	app.ai_level = 2
+	app._on_point(40)
+	await settle()
+	await click_button(app.find_child("restart_button",true,false))
+	var restart_dialog: ConfirmationDialog = app.find_child("new_game_dialog",true,false)
+	await click_at(Vector2(restart_dialog.position) + restart_dialog.get_ok_button().get_global_rect().get_center())
+	await create_timer(0.5).timeout
+	check(app.mode == "katago" and app.game.moves.is_empty() and not app.busy, "visible restart while AI thinks cancels old move and preserves AI mode")
+	app.ai_level = 0
 	# An actual killed process must unlock the interface and support a fresh retry.
 	app.new_game(9,"katago")
 	app._on_point(40)

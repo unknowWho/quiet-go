@@ -221,6 +221,15 @@ static func build(app):
 	app.subtitle_label = app.label(ui,"",12,SECONDARY)
 	app.subtitle_label.position = Vector2(50,151)
 	app.subtitle_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	app.mode_bar = HBoxContainer.new()
+	app.mode_bar.anchor_left = 1
+	app.mode_bar.anchor_right = 1
+	app.mode_bar.offset_left = -290
+	app.mode_bar.offset_right = -48
+	app.mode_bar.offset_top = 151
+	app.mode_bar.offset_bottom = 194
+	app.mode_bar.add_theme_constant_override("separation", 6)
+	ui.add_child(app.mode_bar)
 	app.left_panel = panel(ui,Vector4(32,198,279,-139))
 	app.left_panel.anchor_bottom = 1
 	var drawer = StyleBoxFlat.new()
@@ -268,6 +277,7 @@ static func arrange(app):
 	var learning: bool = app.section in ["lessons", "puzzles"]
 	app.ui_shade.set_shader_parameter("learning_focus", 1.0 if app.section == "puzzles" and app.focus_puzzle and app.puzzles[app.puzzle_index].has("nodes") else 0.0)
 	app.nav_row.visible = not home
+	app.mode_bar.visible = app.section == "play"
 	app.title_label.visible = not home
 	app.subtitle_label.visible = not home
 	app.dock_panel.visible = not home
