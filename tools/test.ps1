@@ -5,8 +5,8 @@ $enginePath = 'D:\godot\Godot_v4.7.1-stable_win64.exe\Godot_v4.7.1-stable_win64_
 $oldAppData = $env:APPDATA
 try {
     $env:APPDATA = Join-Path $projectPath '.runtime'
-    $suites = @('rules','puzzles','katago','ui')
-    if ($KataGo) { $suites += @('katago_live','katago_ui') }
+    $suites = @('rules','puzzles','katago','coach','ui')
+    if ($KataGo) { $suites += @('katago_live','katago_ui','coach_ui') }
     foreach ($suite in $suites) {
         $log = Join-Path $projectPath ('evidence\' + $suite + '.log')
         & $enginePath --headless --audio-driver Dummy --path $projectPath --script ('res://tests/test_' + $suite + '.gd') --log-file $log -- --test-mode
@@ -14,7 +14,7 @@ try {
     }
     if ($Render) {
         $renderSuites = @('ui')
-        if ($KataGo) { $renderSuites += 'katago_ui' }
+        if ($KataGo) { $renderSuites += @('katago_ui','coach_ui') }
         foreach ($suite in $renderSuites) {
             $log = Join-Path $projectPath ('evidence\' + $suite + '-render.log')
             $arguments = @('--path', ('"' + $projectPath + '"'), '--audio-driver','Dummy','--script',('res://tests/test_' + $suite + '.gd'),'--log-file',('"' + $log + '"'),'--','--test-mode','--render')

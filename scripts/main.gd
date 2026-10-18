@@ -6,6 +6,9 @@ const BoardView = preload("res://scripts/board_view.gd")
 const Presentation = preload("res://scripts/presentation.gd")
 const PuzzleSession = preload("res://scripts/puzzle_session.gd")
 const KataGo = preload("res://scripts/katago.gd")
+const Coach = preload("res://scripts/coach.gd")
+const CoachUI = preload("res://scripts/coach_ui.gd")
+var coach = Coach.new()
 const BG = Color("e8e7dd")
 const PAPER = Color("f0e5cf")
 const MUTED = Color("c9bba2")
@@ -82,6 +85,10 @@ func _ready():
 	katago.completed.connect(_engine_completed)
 	katago.failed.connect(_engine_failed)
 	katago.status_changed.connect(func(): call_deferred("_refresh"))
+	add_child(coach)
+	coach.connect_engine(katago)
+	coach.changed.connect(func(): _save(); _refresh())
+	coach.stone_played.connect(_click_sound)
 	_build_ui()
 	for p in [60,300,72,288,249,268,250,309,111,51,52,71,53,70,32,50,97,98,78,79,61,80,40,59,41,58,308,289,290,271,311,293]:
 		home_preview.play(p)
@@ -140,9 +147,11 @@ func clear(parent: Node):
 		child.queue_free()
 
 func current():
+	if section == "coach": return coach.current()
 	return exercise if section in ["lessons", "puzzles"] and exercise != null else game
 
 func _navigate(to: String):
+	coach.leave()
 	_invalidate_engine_work()
 	section = to
 	settings_open = false
@@ -152,6 +161,7 @@ func _navigate(to: String):
 	if to in ["lessons", "puzzles"]: _load_exercise()
 	else:
 		exercise = null
+		if to == "coach": coach.enter()
 		feedback_text = "点击空交叉点落子。双方连续停着后，进入死子确认。" if to == "play" else "木盘与黑白之间，慢慢下一局。"
 		_refresh()
 		_maybe_ai()
@@ -184,6 +194,7 @@ func _refresh():
 	clear(right)
 	clear(action_bar)
 	clear(mode_bar)
+	right.add_theme_constant_override("separation", 8 if section == "home" else 14)
 	var g = current()
 	var learning: bool = section in ["lessons", "puzzles"]
 	Presentation.arrange(self)
@@ -191,11 +202,15 @@ func _refresh():
 	if section == "home" and game.moves.is_empty(): g = home_preview
 	board_view.active = section != "home" and not busy and not (section in ["lessons", "puzzles"] and solved) and not (section == "play" and game.phase == "play" and mode in ["ai", "katago"] and game.turn == 2)
 	var annotations: Dictionary = puzzle_session.annotations() if section == "puzzles" and puzzle_session != null else {}
-	board_view.refresh(g, show_numbers, g.phase in ["scoring", "finished"] and not g.resigned, hint_point, annotations)
+	if section == "coach":
+		annotations = coach.annotations()
+		board_view.active = not coach.busy and coach.preview == null and (g.phase == "scoring" or (g.phase == "play" and g.turn == coach.human))
+	board_view.refresh(g, show_numbers and not (section == "coach" and coach.preview != null), g.phase in ["scoring", "finished"] and not g.resigned and not (section == "coach" and coach.preview != null), hint_point, annotations)
 	board_view.show_ownership(analysis_result.get("ownership", []) if section == "play" and game.phase == "play" and analysis_open and ownership_visible else [])
 	board_view.set_focus(puzzles[puzzle_index].get("focus", []) if section == "puzzles" and focus_puzzle else [])
 	if section == "home": _home_ui()
 	elif section == "play": _play_ui()
+	elif section == "coach": CoachUI.build(self)
 	else: _exercise_ui()
 	button(action_bar, "斜视" if board_view.top_view else "俯视", func(): board_view.set_camera(not board_view.top_view); _refresh())
 	button(action_bar, "隐藏手数" if show_numbers else "显示手数", func(): show_numbers = not show_numbers; _refresh())
@@ -205,11 +220,12 @@ func _refresh():
 
 func _home_ui():
 	label(right, "棋 室    /    Q U I E T  G O", 11, GOLD)
-	Presentation.space(right, 15)
+	Presentation.space(right, 8)
 	Presentation.entry(self, right, "01", "入席对弈", "双人手谈  ·  本地 AI 对弈", func(): _navigate("play")).name = "home_start"
 	Presentation.entry(self, right, "02", "从零入门", "八节交互课程，认识围棋。", func(): _navigate("lessons")).name = "home_lessons"
 	Presentation.entry(self, right, "03", "死活研习", "%d 道练习，从眼形到死活与手筋。" % puzzles.size(), func(): _navigate("puzzles")).name = "home_puzzles"
-	Presentation.space(right, 12)
+	Presentation.entry(self, right, "04", "AI 带练", "先选点，再跟着 AI 看棋路。", func(): _navigate("coach")).name = "home_coach"
+	Presentation.space(right, 6)
 	paragraph(right, "已学 %d / 8 课    已解 %d / %d 题" % [_progress_count("lesson_"), _progress_count("puzzle_", true), puzzles.size()], 12)
 
 func _play_ui():
@@ -462,6 +478,11 @@ func _puzzle_source():
 	dialog.popup_centered(Vector2i(750, 530))
 
 func _on_point(p: int):
+	if section == "coach":
+		if coach.preview == null and coach.game.phase == "scoring":
+			if coach.game.mark_dead(p): coach.changed.emit()
+		else: coach.choose(p)
+		return
 	if section == "home" or busy: return
 	if section in ["lessons", "puzzles"]:
 		if not solved: _answer(p)
@@ -808,7 +829,7 @@ func _export_sgf():
 
 func _save():
 	if test_mode: return
-	var data: Dictionary = {"game": game.to_data(), "mode": mode, "ai_level": ai_level, "progress": progress, "sound": sound_on, "mistakes": mistakes, "puzzle_id": puzzles[puzzle_index].id}
+	var data: Dictionary = {"game": game.to_data(), "mode": mode, "ai_level": ai_level, "coach_game": coach.game.to_data(), "coach_level": coach.level, "coach_human": coach.human, "progress": progress, "sound": sound_on, "mistakes": mistakes, "puzzle_id": puzzles[puzzle_index].id}
 	var temporary: String = save_path + ".tmp"
 	var file = FileAccess.open(temporary, FileAccess.WRITE)
 	if file:
@@ -830,6 +851,12 @@ func _load_save():
 			break
 	sound_on = bool(data.get("sound", true))
 	ai_level = clampi(int(data.get("ai_level", 1)), 0, KataGo.LEVELS.size()-1)
+	coach.level = clampi(int(data.get("coach_level", 1)), 0, KataGo.LEVELS.size()-1)
+	if data.get("coach_game") is Dictionary:
+		var practice = Rules.from_data(data.coach_game)
+		if practice:
+			coach.game = practice
+			coach.human = 2 if data.get("coach_human", 1) == 2 else 1
 	if data.get("game", {}) is Dictionary:
 		var restored = Rules.from_data(data.game)
 		if restored:
@@ -859,6 +886,7 @@ func _unhandled_key_input(event: InputEvent):
 	if not event is InputEventKey or not event.pressed or event.echo: return
 	match event.keycode:
 		KEY_ESCAPE:
+			if section == "coach" and coach.preview != null: coach.close_line()
 			settings_open = false
 			catalog_open = false
 			history_open = false

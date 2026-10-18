@@ -50,7 +50,7 @@ static func position_key(g) -> String:
 	# Full history matters for positional superko, even when stones match.
 	return str(g.get_instance_id()) + JSON.stringify([g.size, g.komi, g.initial, g.initial_turn, g.moves, g.phase, g.turn])
 
-static func query(g, id: String, level: int = 1) -> Dictionary:
+static func query(g, id: String, level: int = 1, forced_point: int = -2) -> Dictionary:
 	var stones: Array = []
 	for p in range(g.initial.size()):
 		if g.initial[p] != 0: stones.append(["B" if g.initial[p] == 1 else "W", coordinate(p, g.size)])
@@ -58,12 +58,17 @@ static func query(g, id: String, level: int = 1) -> Dictionary:
 	for move in g.moves:
 		moves.append(["B" if move.color == 1 else "W", coordinate(int(move.point), g.size)])
 	var budget: Dictionary = LEVELS[clampi(level, 0, LEVELS.size()-1)]
-	return {"id": id, "initialStones": stones, "initialPlayer": "B" if g.initial_turn == 1 else "W",
+	var payload: Dictionary = {"id": id, "initialStones": stones, "initialPlayer": "B" if g.initial_turn == 1 else "W",
 		"moves": moves, "boardXSize": g.size, "boardYSize": g.size, "komi": g.komi,
 		"rules": {"ko": "POSITIONAL", "scoring": "AREA", "suicide": false, "tax": "NONE",
 			"hasButton": false, "whiteHandicapBonus": "0", "friendlyPassOk": true},
-		"maxVisits": budget.visits, "includeOwnership": true, "analysisPVLen": 8,
+		"maxVisits": budget.visits, "includeOwnership": true, "analysisPVLen": 12,
 		"overrideSettings": {"maxTime": budget.seconds, "reportAnalysisWinratesAs": "BLACK"}}
+	# Supported by the installed 1.18.1 protocol. Only constrain the root;
+	# subsequent moves remain a normal search, with the original ko history.
+	if forced_point >= -1:
+		payload["allowMoves"] = [{"player": "B" if g.turn == 1 else "W", "moves": [coordinate(forced_point, g.size)], "untilDepth": 1}]
+	return payload
 
 static func validate_result(data: Dictionary, g) -> Dictionary:
 	if data.get("turnNumber", -1) != g.moves.size(): return {"error": "AI 返回的手数不匹配。"}
@@ -90,11 +95,11 @@ static func validate_result(data: Dictionary, g) -> Dictionary:
 	return {"point": p, "black_winrate": float(info.winrate), "black_lead": float(info.scoreLead),
 		"visits": int(info.visits), "ownership": ownership.duplicate(), "move": best.move}
 
-func request(g, level: int = 1) -> String:
+func request(g, level: int = 1, forced_point: int = -2) -> String:
 	cancel()
 	sequence += 1
 	var id: String = "quiet-go-%d" % sequence
-	pending = query(g, id, level)
+	pending = query(g, id, level, forced_point)
 	if process.is_empty():
 		if not _start():
 			call_deferred("_fail_request", id, error_text)

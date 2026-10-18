@@ -137,6 +137,12 @@ static func entry(app, parent: Node, number: String, title: String, note: String
 	index.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	var b: Button = app.button(row, title, action)
 	b.theme_type_variation = "EntryButton"
+	b.add_theme_font_size_override("font_size", 28)
+	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
+		var style = b.get_theme_stylebox(state).duplicate()
+		style.content_margin_top = 10
+		style.content_margin_bottom = 10
+		b.add_theme_stylebox_override(state, style)
 	b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var hint: Label = app.paragraph(parent, note, 13, SECONDARY)
@@ -200,7 +206,7 @@ static func build(app):
 	app.nav_row.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	app.nav_row.add_theme_constant_override("separation", 7)
 	row.add_child(app.nav_row)
-	for item in [["home","棋室"],["play","对弈"],["lessons","入门教学"],["puzzles","死活练习"]]:
+	for item in [["home","棋室"],["play","对弈"],["coach","AI 带练"],["lessons","入门教学"],["puzzles","死活练习"]]:
 		var key: String = item[0]
 		var b: Button = app.button(app.nav_row,item[1],func(): app._navigate(key))
 		b.theme_type_variation = "NavButton"
@@ -281,7 +287,8 @@ static func arrange(app):
 	app.title_label.visible = not home
 	app.subtitle_label.visible = not home
 	app.dock_panel.visible = not home
-	app.left_panel.visible = (learning and app.catalog_open) or (app.section == "play" and app.settings_open)
+	app.left_panel.visible = (learning and app.catalog_open) or (app.section in ["play", "coach"] and app.settings_open)
+	if app.section == "coach" and (app.coach.preview != null or app.coach.game.phase != "play"): app.left_panel.visible = false
 	app.dock_panel.offset_left = 304 if learning and app.catalog_open else 48
-	app.right_panel.offset_top = 222 if home else (187 if learning else 220)
+	app.right_panel.offset_top = 195 if home else (187 if learning or app.section == "coach" else 220)
 	app.right_panel.offset_bottom = -115
