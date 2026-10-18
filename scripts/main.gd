@@ -5,6 +5,7 @@ const Opponent = preload("res://scripts/opponent.gd")
 const BoardView = preload("res://scripts/board_view.gd")
 const Presentation = preload("res://scripts/presentation.gd")
 const PuzzleSession = preload("res://scripts/puzzle_session.gd")
+const KataGo = preload("res://scripts/katago.gd")
 const BG = Color("e8e7dd")
 const PAPER = Color("f0e5cf")
 const MUTED = Color("c9bba2")
@@ -61,6 +62,13 @@ var puzzle_attempts: Dictionary = {}
 var mistakes: Dictionary = {}
 var focus_puzzle: bool = true
 var ui_shade: ShaderMaterial
+var katago
+var ai_level: int = 1
+var analysis_open: bool = false
+var ownership_visible: bool = false
+var analysis_result: Dictionary = {}
+var engine_request: Dictionary = {}
+var engine_error: String = ""
 const PAGE_SIZE: int = 8
 
 func _ready():
@@ -68,6 +76,11 @@ func _ready():
 	if test_mode: save_path = "res://.runtime/test-save.json"
 	_make_theme()
 	_load_save()
+	katago = KataGo.new()
+	add_child(katago)
+	katago.completed.connect(_engine_completed)
+	katago.failed.connect(_engine_failed)
+	katago.status_changed.connect(func(): call_deferred("_refresh"))
 	_build_ui()
 	for p in [60,300,72,288,249,268,250,309,111,51,52,71,53,70,32,50,97,98,78,79,61,80,40,59,41,58,308,289,290,271,311,293]:
 		home_preview.play(p)
@@ -129,8 +142,7 @@ func current():
 	return exercise if section in ["lessons", "puzzles"] and exercise != null else game
 
 func _navigate(to: String):
-	ai_generation += 1
-	busy = false
+	_invalidate_engine_work()
 	section = to
 	settings_open = false
 	catalog_open = false
@@ -175,9 +187,10 @@ func _refresh():
 	Presentation.arrange(self)
 	board_view.set_training(learning)
 	if section == "home" and game.moves.is_empty(): g = home_preview
-	board_view.active = section != "home" and not busy and not (section in ["lessons", "puzzles"] and solved)
+	board_view.active = section != "home" and not busy and not (section in ["lessons", "puzzles"] and solved) and not (section == "play" and game.phase == "play" and mode in ["ai", "katago"] and game.turn == 2)
 	var annotations: Dictionary = puzzle_session.annotations() if section == "puzzles" and puzzle_session != null else {}
 	board_view.refresh(g, show_numbers, g.phase in ["scoring", "finished"] and not g.resigned, hint_point, annotations)
+	board_view.show_ownership(analysis_result.get("ownership", []) if section == "play" and game.phase == "play" and analysis_open and ownership_visible else [])
 	board_view.set_focus(puzzles[puzzle_index].get("focus", []) if section == "puzzles" and focus_puzzle else [])
 	if section == "home": _home_ui()
 	elif section == "play": _play_ui()
@@ -186,11 +199,12 @@ func _refresh():
 	button(action_bar, "隐藏手数" if show_numbers else "显示手数", func(): show_numbers = not show_numbers; _refresh())
 	feedback_label.text = feedback_text
 	feedback_label.add_theme_color_override("font_color", GOLD if solved and section in ["lessons", "puzzles"] else PAPER)
+	call_deferred("_maybe_analysis")
 
 func _home_ui():
 	label(right, "棋 室    /    Q U I E T  G O", 11, GOLD)
 	Presentation.space(right, 15)
-	Presentation.entry(self, right, "01", "入席对弈", "同屏双人  ·  入门陪练", func(): _navigate("play")).name = "home_start"
+	Presentation.entry(self, right, "01", "入席对弈", "双人手谈  ·  本地 AI 对弈", func(): _navigate("play")).name = "home_start"
 	Presentation.entry(self, right, "02", "从零入门", "八节交互课程，认识围棋。", func(): _navigate("lessons")).name = "home_lessons"
 	Presentation.entry(self, right, "03", "死活研习", "%d 道练习，从眼形到死活与手筋。" % puzzles.size(), func(): _navigate("puzzles")).name = "home_puzzles"
 	Presentation.space(right, 12)
@@ -199,7 +213,7 @@ func _home_ui():
 func _play_ui():
 	var c: String = "黑" if game.turn == 1 else "白"
 	title_label.text = "手谈 · %d 路" % game.size
-	subtitle_label.text = ("同屏双人" if mode == "local" else "入门陪练 · 你执黑") + "    /    黑贴 3¾ 子    /    不限时"
+	subtitle_label.text = _opponent_name() + (" · 你执黑" if mode != "local" else "") + "    /    黑贴 3¾ 子    /    不限时"
 	Presentation.heading(self, left, "对局设置", 23)
 	paragraph(left, "当前棋局会自动保存。开始新局将替换这盘棋。", 13)
 	for n in [9, 13, 19]:
@@ -207,21 +221,42 @@ func _play_ui():
 	rule(left)
 	button(left, "✓ 同屏双人" if mode == "local" else "同屏双人", func(): _request_new(game.size, "local"))
 	button(left, "✓ 入门陪练" if mode == "ai" else "入门陪练", func(): _request_new(game.size, "ai"))
+	button(left, "✓ KataGo 对弈" if mode == "katago" else "KataGo 对弈", func(): _request_new(game.size, "katago")).name = "katago_mode"
 	if mode == "ai": paragraph(left, "陪练会提子、逃打吃、连接与占点，适合熟悉操作；不标称段位。终局由你复核盘面。", 13)
+	paragraph(left, "KataGo · 本地运行" if katago.installed() else "KataGo · 尚未安装", 13, GOLD)
+	var strength = OptionButton.new()
+	strength.name = "ai_strength"
+	for level in KataGo.LEVELS: strength.add_item("思考 · " + level.name)
+	strength.select(ai_level)
+	strength.disabled = busy
+	strength.item_selected.connect(func(i):
+		ai_level = i
+		_invalidate_engine_work()
+		_save()
+		_refresh()
+		_maybe_ai())
+	left.add_child(strength)
+	paragraph(left, "控制思考时间，不对应人类段位。形势分析也使用这一设置。", 12)
+	if not katago.installed(): paragraph(left, "双击游戏文件夹内的 SetupAI.cmd 安装。下载完成后可离线对弈。", 13)
 	rule(left)
 	button(left, "导出棋谱 SGF", _export_sgf)
-	if game.phase == "play": button(left, "认输结束本局", _request_resign, busy)
+	if game.phase == "play": button(left, "认输结束本局", _request_resign, busy or (mode in ["ai", "katago"] and game.turn == 2))
 	paragraph(left, "悔棋是练习工具；同屏对弈时请先与对手商量。", 13)
 	if game.phase == "play":
 		label(right, "对 局    /    %d 路" % game.size, 11, GOLD)
-		Presentation.space(right, 8)
+		if not analysis_open: Presentation.space(right, 8)
 		Presentation.heading(self, right, "白方思考中" if busy else c + "方落子", 32)
-		paragraph(right, "第 %d 手  ·  %s" % [game.moves.size()+1, "同屏双人" if mode == "local" else "入门陪练"], 14)
-		Presentation.space(right, 18)
+		paragraph(right, "第 %d 手  ·  %s" % [game.moves.size()+1, _opponent_name()], 14)
+		if not analysis_open: Presentation.space(right, 18)
 		paragraph(right, "提子    黑  %d    /    白  %d" % [game.captures[1], game.captures[2]], 14)
 		if game.passes == 1: paragraph(right, "上一手停着。再停一手就进入终局确认。", 15, GOLD)
-		button(action_bar, "停着", _pass, busy).name = "pass_button"
-		button(action_bar, "悔棋", _undo, busy or game.moves.is_empty()).name = "undo_button"
+		button(action_bar, "停着", _pass, busy or (mode in ["ai", "katago"] and game.turn == 2)).name = "pass_button"
+		button(action_bar, "悔棋", _undo, game.moves.is_empty()).name = "undo_button"
+		if mode == "katago" and busy and katago.state == "starting": paragraph(right, "正在载入本地 AI，首次显卡调优可能需要几分钟。", 13, GOLD)
+		if not engine_error.is_empty():
+			paragraph(right, engine_error, 13, GOLD)
+			button(right, "重试本地 AI", _retry_engine).name = "retry_engine"
+		_analysis_ui()
 	elif game.resigned:
 		label(right, ("白" if game.resigned == 1 else "黑") + "棋获胜", 25, GOLD)
 		paragraph(right, ("黑" if game.resigned == 1 else "白") + "方中盘认输。")
@@ -236,7 +271,7 @@ func _play_ui():
 			button(right, "✓ 黑方已确认" if game.approvals[1] else "黑方确认", func(): _approve(1), game.approvals[1]).name = "approve_black"
 			button(right, "✓ 白方已确认" if game.approvals[2] else "白方确认", func(): _approve(2), game.approvals[2]).name = "approve_white"
 			button(action_bar, "继续对弈", _resume).name = "resume_button"
-			if mode == "ai": paragraph(right, "陪练局也请检查双方死子，再代双方确认。未使用自动死活裁判。", 12)
+			if mode in ["ai", "katago"]: paragraph(right, "人机局也请检查双方死子，再代双方确认。形势估计不代替终局确认。", 12)
 		else:
 			paragraph(right, "双方已确认结果。胜差按中国数子法以“子”显示。", 14)
 			button(action_bar, "再来一局", func(): _request_new(game.size, mode))
@@ -422,11 +457,13 @@ func _on_point(p: int):
 			_refresh()
 		return
 	if game.phase != "play": return
+	if mode in ["ai", "katago"] and game.turn == 2: return
 	var r: Dictionary = game.play(p)
 	if not r.ok:
 		feedback_text = r.reason
 		_refresh()
 		return
+	_invalidate_engine_work()
 	_click_sound()
 	feedback_text = "%s落在 %s%s" % ["黑棋" if game.turn == 2 else "白棋", game.coord(p), "，提走 %d 子。" % r.captured.size() if not r.captured.is_empty() else "。"]
 	_save()
@@ -516,16 +553,19 @@ func _on_hover(p: int):
 	hover_label.text = text_value
 
 func _pass():
+	if mode in ["ai", "katago"] and game.turn == 2: return
 	if busy or section != "play" or not game.pass_turn(): return
+	_invalidate_engine_work()
 	feedback_text = "双方连续停着。请共同标记死子并确认；有争议可以继续对弈。" if game.phase == "scoring" else "上一方停着，现在轮到对方。"
 	_save()
 	_refresh()
 	_maybe_ai()
 
 func _undo():
-	if busy or section != "play": return
+	if section != "play": return
+	_invalidate_engine_work()
 	if not game.undo(): return
-	if mode == "ai" and game.turn == 2 and not game.moves.is_empty(): game.undo()
+	if mode in ["ai", "katago"] and game.turn == 2 and not game.moves.is_empty(): game.undo()
 	feedback_text = "已回到上一回合。"
 	_save()
 	_refresh()
@@ -541,6 +581,7 @@ func _result_text(score: Dictionary) -> String:
 	return "%s胜 %s 子" % ["黑" if score.winner == 1 else "白", str(absf(score.margin_zi))]
 
 func _resume():
+	_invalidate_engine_work()
 	game.resume_play()
 	feedback_text = "恢复原盘面继续对弈；死子标记已取消，全局历史仍然保留。"
 	_save()
@@ -565,8 +606,7 @@ func _request_new(n: int, opponent: String):
 	else: new_game(n, opponent)
 
 func new_game(n: int, opponent: String):
-	ai_generation += 1
-	busy = false
+	_invalidate_engine_work()
 	game = Rules.new(n)
 	mode = opponent
 	settings_open = false
@@ -580,13 +620,20 @@ func new_game(n: int, opponent: String):
 
 func _request_resign():
 	confirm("确认由当前行棋方认输并结束本局？", func():
+		_invalidate_engine_work()
 		game.resign()
 		feedback_text = "本局结束。"
 		_save()
 		_refresh())
 
 func _maybe_ai():
-	if mode != "ai" or section != "play" or game.turn != 2 or game.phase != "play" or busy: return
+	if mode not in ["ai", "katago"] or section != "play" or game.turn != 2 or game.phase != "play" or busy: return
+	if mode == "katago":
+		_invalidate_engine_work()
+		busy = true
+		_request_engine("move")
+		_refresh()
+		return
 	busy = true
 	var generation: int = ai_generation
 	_refresh()
@@ -594,6 +641,7 @@ func _maybe_ai():
 	if generation != ai_generation or section != "play": return
 	var p: int = Opponent.new().choose(game)
 	busy = false
+	_invalidate_engine_work()
 	if p < 0:
 		game.pass_turn()
 		feedback_text = "白棋停着。"
@@ -604,12 +652,112 @@ func _maybe_ai():
 	_save()
 	_refresh()
 
+func _opponent_name() -> String:
+	return {"local": "同屏双人", "ai": "入门陪练", "katago": "KataGo"}.get(mode, "同屏双人")
+
+func _invalidate_engine_work():
+	ai_generation += 1
+	busy = false
+	if is_instance_valid(katago): katago.cancel()
+	engine_request.clear()
+	analysis_result.clear()
+	engine_error = ""
+
+func _request_engine(purpose: String):
+	var id: String = katago.request(game, ai_level)
+	engine_request = {"id": id, "purpose": purpose, "key": KataGo.position_key(game), "generation": ai_generation}
+
+func _maybe_analysis():
+	if section != "play" or game.phase != "play" or not analysis_open or busy: return
+	if mode in ["ai", "katago"] and game.turn == 2: return
+	if not engine_request.is_empty() or not analysis_result.is_empty() or not engine_error.is_empty(): return
+	_request_engine("analysis")
+	_refresh()
+
+func _engine_completed(id: String, data: Dictionary):
+	if engine_request.is_empty() or id != engine_request.id: return
+	var context: Dictionary = engine_request.duplicate()
+	engine_request.clear()
+	if section != "play" or game.phase != "play" or context.generation != ai_generation or context.key != KataGo.position_key(game): return
+	var result: Dictionary = KataGo.validate_result(data, game)
+	if result.has("error"):
+		busy = false
+		engine_error = result.error
+		_refresh()
+		return
+	if context.purpose == "move":
+		_invalidate_engine_work()
+		var p: int = result.point
+		if p < 0:
+			game.pass_turn()
+			feedback_text = "KataGo 停着。" + ("双方连续停着，请确认死子。" if game.phase == "scoring" else "轮到你了。")
+		else:
+			game.play(p) # Already checked against the full authoritative history above.
+			_click_sound()
+			feedback_text = "KataGo 落在 " + game.coord(p) + "，轮到你了。"
+		_save()
+	else:
+		analysis_result = result
+	_refresh()
+
+func _engine_failed(id: String, message: String):
+	if engine_request.is_empty() or id != engine_request.id: return
+	engine_request.clear()
+	busy = false
+	engine_error = message
+	_refresh()
+
+func _retry_engine():
+	_invalidate_engine_work()
+	_maybe_ai()
+	_refresh()
+
+func _toggle_analysis():
+	analysis_open = not analysis_open
+	if not analysis_open and engine_request.get("purpose", "") == "analysis":
+		katago.cancel()
+		engine_request.clear()
+	_refresh()
+
+func _analysis_ui():
+	rule(right)
+	button(right, "形势判断  −" if analysis_open else "形势判断  +", _toggle_analysis).name = "analysis_button"
+	if not analysis_open: return
+	if analysis_result.is_empty():
+		var message: String = "正在分析当前局面…"
+		if busy: message = "落子后更新形势。"
+		elif katago.state == "starting": message = "正在载入本地 AI，首次显卡调优可能需要几分钟。"
+		elif not engine_error.is_empty(): message = "分析暂不可用。"
+		paragraph(right, message, 13, MUTED)
+		return
+	var lead: float = analysis_result.black_lead
+	var advantage: String = "局势接近" if absf(lead) < 0.05 else "%s领先 %.1f 目" % ["黑" if lead > 0 else "白", absf(lead)]
+	var body = VBoxContainer.new()
+	body.add_theme_constant_override("separation", 8)
+	right.add_child(body)
+	label(body, advantage, 24, PAPER).name = "analysis_lead"
+	var winrate: float = analysis_result.black_winrate * 100.0
+	paragraph(body, "胜率   黑 %.1f%%  /  白 %.1f%%" % [winrate, 100.0-winrate], 13, PAPER).name = "analysis_winrate"
+	var bar = ProgressBar.new()
+	bar.name = "winrate_bar"
+	bar.custom_minimum_size.y = 5
+	bar.show_percentage = false
+	bar.value = winrate
+	for style in ["background", "fill"]:
+		var box = StyleBoxFlat.new()
+		box.bg_color = Color("e7dfce") if style == "background" else Color("383e3a")
+		bar.add_theme_stylebox_override(style, box)
+	body.add_child(bar)
+	paragraph(body, "AI 估计 · 已计贴目\n按双方分差计目，2 目 = 1 子。", 12)
+	button(body, "隐藏地域" if ownership_visible else "显示地域", func(): ownership_visible = not ownership_visible; _refresh()).name = "ownership_button"
+	if ownership_visible: paragraph(body, "黑 / 白为预计归属\n方块越大，判断越确定。", 12)
+
 func _show_rules():
 	var dialog: AcceptDialog = AcceptDialog.new()
 	dialog.name = "rules_dialog"
 	dialog.title = "规则与操作"
 	dialog.ok_button_text = "明白了"
-	dialog.dialog_text = "【本棋室规则】\n黑先白后；上下左右连通的棋共享气。落子先提敌方无气棋，再检查己方的气。禁止自杀。\n采用位置禁全同：落子不得重复任何历史盘面，停着不受此限制。\n这是明确的软件规则预设；不模拟中国赛事中长生、三劫循环等由裁判决定的例外处理。\n\n【终局与计分】\n连续两次停着后，双方标记死子并分别确认。更改标记后需要重新确认。\n有争议时继续下；不会自动推断死子。双活棋保留，双方之间的空点平分。\n中国数子法：活子 + 所围空点 + 公气一半。黑贴还 3¾ 子，等价于双方分差贴 7.5 点。\n提子不另外加分。胜差以“子”显示；SGF 结果按双方分差的“点”记录。\n\n【操作】\n鼠标左键落子；悬停棋子可看气。V 切换俯视，N 切换手数，M 切换声音。\n对局与课程、题目进度自动保存。教学不会覆盖你的对局。\n入门陪练是基础启发式对手；不提供段位、在线匹配或职业级分析。\n\n【素材与依据】\n木纹：Poly Haven / Fine Grained Wood（CC0 扫描材质）；环境光：Studio Small 09（CC0）。棋具为原创三维模型。\n落子声：billhails2 的云子落盘实录（CC0）。白子贝纹为程序模拟。规则参考：中国围棋协会官网。"
+	dialog.dialog_text = "【本棋室规则】\n黑先白后；上下左右连通的棋共享气。落子先提敌方无气棋，再检查己方的气。禁止自杀。\n采用位置禁全同：落子不得重复任何历史盘面，停着不受此限制。\n这是明确的软件规则预设；不模拟中国赛事中长生、三劫循环等由裁判决定的例外处理。\n\n【终局与计分】\n连续两次停着后，双方标记死子并分别确认。更改标记后需要重新确认。\n有争议时继续下；不会自动推断死子。双活棋保留，双方之间的空点平分。\n中国数子法：活子 + 所围空点 + 公气一半。黑贴还 3¾ 子，等价于双方分差贴 7.5 点。\n提子不另外加分。胜差以“子”显示；SGF 结果按双方分差的“点”记录。\n\n【操作】\n鼠标左键落子；悬停棋子可看气。V 切换俯视，N 切换手数，M 切换声音。\n对局与课程、题目进度自动保存。教学不会覆盖你的对局。\n入门陪练是基础启发式对手；KataGo 是单独的本地 AI，可在棋局设置中选择。\n形势判断已计贴目，目差按双方分差显示，2 目 = 1 子。胜率和地域均为 AI 预测，不代替终局确认。\n\n【素材与依据】\n木纹：Poly Haven / Fine Grained Wood（CC0 扫描材质）；环境光：Studio Small 09（CC0）。棋具为原创三维模型。\n落子声：billhails2 的云子落盘实录（CC0）。白子贝纹为程序模拟。规则参考：中国围棋协会官网。"
 	dialog.confirmed.connect(dialog.queue_free)
 	add_child(dialog)
 	var text_value: String = dialog.dialog_text
@@ -642,7 +790,7 @@ func _export_sgf():
 
 func _save():
 	if test_mode: return
-	var data: Dictionary = {"game": game.to_data(), "mode": mode, "progress": progress, "sound": sound_on, "mistakes": mistakes, "puzzle_id": puzzles[puzzle_index].id}
+	var data: Dictionary = {"game": game.to_data(), "mode": mode, "ai_level": ai_level, "progress": progress, "sound": sound_on, "mistakes": mistakes, "puzzle_id": puzzles[puzzle_index].id}
 	var temporary: String = save_path + ".tmp"
 	var file = FileAccess.open(temporary, FileAccess.WRITE)
 	if file:
@@ -663,11 +811,12 @@ func _load_save():
 			puzzle_page = i / PAGE_SIZE
 			break
 	sound_on = bool(data.get("sound", true))
+	ai_level = clampi(int(data.get("ai_level", 1)), 0, KataGo.LEVELS.size()-1)
 	if data.get("game", {}) is Dictionary:
 		var restored = Rules.from_data(data.game)
 		if restored:
 			game = restored
-			mode = "ai" if data.get("mode", "local") == "ai" else "local"
+			mode = str(data.get("mode", "local")) if data.get("mode", "local") in ["local", "ai", "katago"] else "local"
 
 func _progress_count(prefix: String, independent_only: bool = false) -> int:
 	var count: int = 0

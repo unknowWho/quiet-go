@@ -26,6 +26,8 @@ var last_model_id: int = 0
 var last_move_count: int = 0
 var visual_signature: String = ""
 var piece_mesh: SphereMesh
+var territory: Node3D
+var ownership_signature: String = ""
 
 func _ready():
 	label_font = SystemFont.new()
@@ -64,6 +66,8 @@ func _ready():
 	add_child(pieces)
 	marks = Node3D.new()
 	add_child(marks)
+	territory = Node3D.new()
+	add_child(territory)
 	props = Node3D.new()
 	add_child(props)
 	make_bowl(Vector3(-4.85,-0.55,-2.4),1)
@@ -226,6 +230,25 @@ func refresh(g,numbers: bool=false,show_score: bool=false,hint: int=-1,annotatio
 		var q: int = int(p)
 		marker(q, Color("e6d5a7") if cells[q] == 1 else Color("713c2b"), str(annotations[p]))
 	ghost.visible=false
+
+func show_ownership(values: Array):
+	var signature: String = str(size) + str(cells) + str(values)
+	if signature == ownership_signature: return
+	ownership_signature = signature
+	clear_children(territory)
+	if values.size() != size * size: return
+	for p in range(values.size()):
+		var confidence: float = absf(float(values[p]))
+		if confidence < 0.15: continue
+		# Only mark occupied points when the predicted owner differs from the stone.
+		if (cells[p] == 1 and values[p] > 0) or (cells[p] == 2 and values[p] < 0): continue
+		var color: Color = Color("242d27") if values[p] > 0 else Color("fff7e2")
+		var mat: StandardMaterial3D = material(color)
+		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		var width: float = pitch * (0.10 + 0.22 * confidence)
+		var height: float = pitch * 0.45 if cells[p] != 0 else 0.04
+		var node = box(territory, Vector3(width, 0.008, width), point_position(p) + Vector3(0, height, 0), mat)
+		node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 func point_position(p: int) -> Vector3:
 	return Vector3((p%size)*pitch-span*0.5,0.012,(p/size)*pitch*1.04-span*0.52)

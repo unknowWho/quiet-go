@@ -1,0 +1,15 @@
+{
+  "engine_version": "1.18.1",
+  "backend": "OpenCL / Windows x64",
+  "engine_url": "https://github.com/lightvector/KataGo/releases/download/v1.18.1/katago-v1.18.1-opencl-windows-x64.zip",
+  "engine_sha256": "1710db1903ab921aa6837a9599c8474f8a59f057650217c5d9bc125ee393a9ff",
+  "engine_hash_source": "GitHub release asset digest",
+  "model": "kata1-b18c384nbt-s9996604416-d4316597426",
+  "model_url": "https://media.katagotraining.org/uploaded/networks/models/kata1/kata1-b18c384nbt-s9996604416-d4316597426.bin.gz",
+  "model_sha256": "9d7a6afed8ff5b74894727e156f04f0cd36060a24824892008fbb6e0cba51f1d",
+  "model_hash_source": "SHA-256 of the official HTTPS download, pinned for reproducibility",
+  "engine_license": "MIT; licenses/ENGINE.txt",
+  "model_license": "KataGo Neural Network License; licenses/NETWORK.html",
+  "model_license_url": "https://katagotraining.org/network_license/",
+  "checked_on": "2026-10-18"
+}

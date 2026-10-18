@@ -7,3 +7,5 @@ evidence/v*/
 evidence/art-*.png
 evidence/source-inspection.json
 evidence/*.import
+engines/katago/runtime/
+engines/katago/downloads/
